@@ -76,13 +76,6 @@ void loop() {
     client.print(t);
     client.print(" *C ");
     client.print(f );
-    client.print(" *F\t");
-    client.print("Heat index: ");
-    client.print(hic);
-    client.print(" *C ");
-    client.print(hif);
-    client.println(" *F");
-    client.println("</html>");
     delay(1);
     Serial.println("Client disonnected");
     Serial.println("");
