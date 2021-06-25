@@ -3,6 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=vue,node
 
 ### Node ###
+*.env
 # Logs
 logs
 *.log

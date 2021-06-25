@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "jungho3145",
+    "password": "jungho3710",
+    "database": "closetDB",
+    "host": "closetmysqlserver.cayzgqwcs3pk.us-east-2.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
