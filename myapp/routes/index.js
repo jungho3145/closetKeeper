@@ -1,17 +1,13 @@
 var express = require("express");
+const path= require('path');
 var router = express.Router();
 const { verifyToken } = require("../middlewares/auth");
 
 // router.use(verifyToken);
 /* GET home page. */
-// router.get("/", verifyToken, async (req, res, next) => {
-//   //미들웨어로 토큰 정보 확인
-//   try {
-//     res.json(req.decoded);
-//   } catch (error) {
-//     console.log(error);
-//     next(error);
-//   }
-// });
+
+router.get("/", (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+})
 
 module.exports = router;

@@ -7,7 +7,6 @@ var logger = require("morgan");
 const { sequelize } = require("./models");
 const passport = require("passport");
 const passportConfig = require("./config/passport");
-const bodyParser = require("body-parser");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
