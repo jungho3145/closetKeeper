@@ -25,6 +25,7 @@ router.post(
   verifyToken,
   upload.single("img"),
   doAsync(async (req, res, next) => {
+    console.log(req.body);
     if (req.body.name && req.body.kind && req.body.materials && req.body.size) {
       //등록한 유저 검색
       const user = await User.findOne({
@@ -52,6 +53,7 @@ router.post(
 router.post(
   "/sendStatus",
   verifyToken,
+  upload.none(),
   doAsync(async (req, res, next) => {
     if (req.body.temp && req.body.hum) {
       const user = await User.findOne({

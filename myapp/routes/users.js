@@ -7,9 +7,11 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const { verifyToken } = require("../middlewares/auth");
 const Closet = require("../models/Closet");
+const multer = require("multer");
+var upload = multer();
 
 /* GET users listing. */
-router.post("/signup", async (req, res, next) => {
+router.post("/signup", upload.none(), async (req, res, next) => {
   console.log(req.body);
   if (req.body.email && req.body.password && req.body.name) {
     const data = await User.findAll({
@@ -47,7 +49,8 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", upload.none(), async (req, res, next) => {
+  console.log(req.body);
   try {
     //해당 정보가 맞는지 검사
     passport.authenticate("local", (passportError, user, info) => {
@@ -74,41 +77,46 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.post("/addCloset", verifyToken, async (req, res, next) => {
-  if (req.body.temp && req.body.hum) {
-    const user = await User.findOne({
-      where: {
-        email: req.decoded.email,
-      },
-    });
-
-    if (user.closet) {
-      res.send({ msg: "이미 옷장이 등록됨!" });
-      return;
-    }
-
-    const closet = await Closet.create({
-      temp: req.body.temp,
-      Hum: req.body.hum,
-    });
-
-    console.log(closet);
-
-    const user2 = await User.update(
-      {
-        closet: closet.id,
-      },
-      {
+router.post(
+  "/addCloset",
+  upload.none(),
+  verifyToken,
+  async (req, res, next) => {
+    if (req.body.temp && req.body.hum) {
+      const user = await User.findOne({
         where: {
-          id: user.id,
+          email: req.decoded.email,
         },
-      }
-    );
+      });
 
-    res.json(user2);
-  } else {
-    res.status(401).json({ msg: "불완전한 데이터" });
+      if (user.closet) {
+        res.send({ msg: "이미 옷장이 등록됨!" });
+        return;
+      }
+
+      const closet = await Closet.create({
+        temp: req.body.temp,
+        Hum: req.body.hum,
+      });
+
+      console.log(closet);
+
+      const user2 = await User.update(
+        {
+          closet: closet.id,
+        },
+        {
+          where: {
+            id: user.id,
+          },
+        }
+      );
+
+      res.json(user2);
+    } else {
+      res.status(401).json({ msg: "불완전한 데이터" });
+    }
   }
-});
+);
 
 module.exports = router;
