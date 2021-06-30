@@ -4,6 +4,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
+var multer = require("multer");
+var upload = multer();
 require("dotenv").config();
 
 const { sequelize } = require("./models");
@@ -38,6 +40,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
+//app.use(upload.none());
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
