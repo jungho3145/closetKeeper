@@ -2,7 +2,8 @@ import os
 import RPi.GPIO as GPIO
 from time import sleep
 
-pin = 23
+pan = 23
+peltier = 
 
 def setup():
     GPIO.setmode(GPIO.BCM)
