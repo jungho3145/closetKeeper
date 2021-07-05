@@ -50,7 +50,6 @@ router.post("/signup", upload.none(), async (req, res, next) => {
 });
 
 router.post("/login", upload.none(), async (req, res, next) => {
-  console.log(req.body);
   try {
     //해당 정보가 맞는지 검사
     passport.authenticate("local", (passportError, user, info) => {
@@ -69,7 +68,7 @@ router.post("/login", upload.none(), async (req, res, next) => {
         "jwt-secret-key",
         { expiresIn: "7d" }
       );
-      res.json({ token });
+      res.send({ token: token, name: user.name, email: user.email });
     })(req, res);
   } catch (error) {
     console.error(error);
