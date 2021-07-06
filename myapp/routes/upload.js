@@ -87,4 +87,23 @@ router.get(
     throw new Error("Async 에러 발생!");
   })
 );
+
+router.delete(
+  "/delete/:id",
+  verifyToken,
+  doAsync(async (req, res, next) => {
+    const isTrue = await Clothes.findOne({
+      where: { id: req.params.id },
+    });
+
+    if (isTrue) {
+      await Clothes.destroy({
+        where: { id: req.params.id },
+      });
+      res.send({ msg: "삭제 완료" });
+    } else {
+      res.send({ msg: "error" });
+    }
+  })
+);
 module.exports = router;
