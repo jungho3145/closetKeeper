@@ -4,7 +4,7 @@ import sys
 from time import sleep
 
 while True:
-    URL = 'http://192.168.137.37'
+    URL = 'http://192.168.137.97'
     webpage = requests.get(URL)
     webcontent = webpage.content
     htmlcontent = bs(webcontent, 'html.parser')
